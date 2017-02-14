@@ -12,8 +12,16 @@
 *
 *
 *
+*
 
-### O Jogo Snakes and Ladders
+### Python
+
+*[Curso Python para Zumbis] (https://www.pycursos.com/python-para-zumbis/)
+*
+*
+*
+*
+## O Jogo Snakes and Ladders
 
 ```markdown
 ######################################################################################
@@ -133,5 +141,100 @@ np.savetxt("P.txt",P,fmt='%.2f')
 np.savetxt("wk.txt",wk,fmt='%.10f')
 
 ```
+## O Algoritmo de Prim
 
+##########################################################################
+#Importa as bibliotecas necessarias
+import networkx as nx
+import matplotlib.pyplot as plt
+import numpy as np
+
+
+#########################################################################
+#Algortimo de Prim, retorn a MST
+def prim(G, r):
+	LAMBDA = []
+	PI = []
+	Q1 = {}
+	Q2 = G.nodes()
+	for v in Q2:
+		if v == r:
+			LAMBDA.append(0)
+			Q1[v] = 0
+		else:
+			LAMBDA.append(100000000)
+			Q1[v] = 100000000
+		PI.append(None)
+	S = []
+	while len(Q1) != 0:
+		minimo = min(Q1, key = Q1.get)
+		position = Q2.index(minimo)
+		q = Q2[position]
+		del Q1[minimo]
+		S.append(q)
+		N = G.neighbors(q)
+		for v in N:
+			if v in Q1 and LAMBDA[Q2.index(v)] > G[q][v]['weight']:
+				LAMBDA[Q2.index(v)] = G[q][v]['weight']
+				Q1[v] = G[q][v]['weight']
+				PI[Q2.index(v)] = q
+
+	H = nx.Graph()
+	for v in Q2:
+		H.add_node(v)
+	for i in range(0,len(Q2)):
+		if PI[i] != None:
+			H.add_edge(PI[i],Q2[i],weight=LAMBDA[i])
+
+	return H
+
+	
+
+
+##########################################################################
+#Cria um grafo de teste
+G = nx.Graph()
+G.add_node("A")
+G.add_node("B")
+G.add_node("C")
+G.add_node("D")
+G.add_node("E")
+G.add_node("F")
+G.add_node("G")
+G.add_node("H")
+G.add_node("I")
+
+#adiciona as arestas com peso
+G.add_edge("A","B",weight=4)
+G.add_edge("B","C",weight=8)
+G.add_edge("C","D",weight=7)
+G.add_edge("D","E",weight=9)
+G.add_edge("E","F",weight=10)
+G.add_edge("F","G",weight=2)
+G.add_edge("H","I",weight=7)
+G.add_edge("I","C",weight=2)
+G.add_edge("H","A",weight=8)
+G.add_edge("B","H",weight=11)
+G.add_edge("D","F",weight=14)
+G.add_edge("I","G",weight=6)
+G.add_edge("F","C",weight=4)
+G.add_edge("H","G",weight=1)
+
+#desenha o grafo inicial
+pos=nx.spring_layout(G)
+nx.draw_networkx_nodes(G,pos)
+nx.draw_networkx_edges(G,pos)
+plt.savefig("Graph1.png", format="PNG")
+plt.show()
+
+#chama o algoritmo de prim para encontrar uma mst
+H = prim(G,"A")
+nx.write_gml(H, "teste.gml")
+
+#desenha a mst obtida
+pos=nx.spring_layout(H)
+nx.draw_networkx_nodes(H,pos)
+nx.draw_networkx_edges(H,pos)
+plt.savefig("MST1.png", format="PNG")
+plt.show()
 
