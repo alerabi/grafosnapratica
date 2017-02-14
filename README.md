@@ -6,7 +6,12 @@
 
    Para aprofundar os estudos, e para futura referência, estão listados aqui alguns recursos didáticos em _Teoria dos Grafos_, _Python_ e _NetworkX_:
 
+### Teoria dos Grafos
 
+*
+*
+*
+*
 
 ### O Jogo Snakes and Ladders
 
