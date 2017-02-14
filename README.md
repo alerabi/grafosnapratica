@@ -147,10 +147,10 @@ np.savetxt("P.txt",P,fmt='%.2f')
 
 #salva o resultado final apos o power method
 np.savetxt("wk.txt",wk,fmt='%.10f')
-
 ```
 ## O Algoritmo de Prim
 
+```markdown 
 ##########################################################################
 #Importa as bibliotecas necessarias
 import networkx as nx
@@ -245,4 +245,4 @@ nx.draw_networkx_nodes(H,pos)
 nx.draw_networkx_edges(H,pos)
 plt.savefig("MST1.png", format="PNG")
 plt.show()
-
+```
