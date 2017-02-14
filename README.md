@@ -1,10 +1,14 @@
-## Grafos na Prática
+# Grafos na Prática
 
-  O objetivo deste repositório é apresentar alguns conceitos básicos, assim como alguns dos algoritmos mais utilizados na área de Teoria dos Grafos. Através da biblioteca [NetworkX](http://networkx.readthedocs.io/en/stable/), da linguagem [Python](https://docs.python.org/3/), que possui ferramentas específicas para trabalhar com grafos e a modelagem de problemas através de grafos, serão apresentados alguns exemplos práticos selecionados, de soluções de problemas comuns em Teoria dos Grafos
+## Introdução
+
+   O objetivo deste repositório é apresentar alguns conceitos básicos, assim como alguns dos algoritmos mais utilizados na área de Teoria dos Grafos. Através da biblioteca [NetworkX](http://networkx.readthedocs.io/en/stable/), da linguagem [Python](https://docs.python.org/3/), que possui ferramentas específicas para trabalhar com grafos e a modelagem de problemas através de grafos, serão apresentados alguns exemplos práticos selecionados, de soluções de problemas comuns em Teoria dos Grafos.
+
+   Para aprofundar os estudos, e para futura referência, estão listados aqui alguns recursos didáticos em _Teoria dos Grafos_, _Python_ e _NetworkX_:
 
 
 
-
+### O Jogo Snakes and Ladders
 
 ```markdown
 ######################################################################################
