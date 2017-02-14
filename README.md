@@ -17,10 +17,18 @@
 ### Python
 
 * [Curso Python para Zumbis] (https://www.pycursos.com/python-para-zumbis/)
+* [Curso completo de Python no Youtube (excript)](https://www.youtube.com/playlist?list=PLesCEcYj003QxPQ4vTXkt22-E11aQvoVj)
+* [Curso completo de Python no Youtube (Ignorância Zero)] (https://www.youtube.com/playlist?list=PLfCKf0-awunOu2WyLe2pSD2fXUo795xRe)
+* [Introdução ao Python do MIT OpenCourseWare](https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-01sc-introduction-to-electrical-engineering-and-computer-science-i-spring-2011/python-tutorial/)
+* [Tutorial de Teoria dos Grafos em Python](http://www.python-course.eu/graphs_python.php)
+
+### NetworkX
+
+* [Tutorial sobre NetworkX no Youtube](https://www.youtube.com/playlist?list=PLbu9W4c-C0iC-f1ByMHSa07OSgEQQ-rAk)
+* [Palestra sobre Análise de Redes Sociais com NetworkX](https://www.youtube.com/watch?v=7fsreJMy_pI)
+* [Palestra sobre visualização de Grafos em 3D com NetworkX](https://www.youtube.com/watch?v=7fsreJMy_pI)
 *
-*
-*
-*
+* 
 ## O Jogo Snakes and Ladders
 
 ```markdown
