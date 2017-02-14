@@ -16,7 +16,7 @@
 
 ### Python
 
-*[Curso Python para Zumbis] (https://www.pycursos.com/python-para-zumbis/)
+* [Curso Python para Zumbis] (https://www.pycursos.com/python-para-zumbis/)
 *
 *
 *
