@@ -327,7 +327,7 @@ plt.show()
 
 
 
-** A imagem a seguir mostra o grafo que descreve o dataset importado:
+**A imagem a seguir mostra o grafo que descreve o dataset importado:
 
 ![grafo dataset](https://github.com/alerabi/grafosnapratica/blob/3041695e5e30469ebf59179a9133a6df739db660/T3/lesmis.png)
 
@@ -347,7 +347,7 @@ plt.show()
 ```
 
 
-** A imagem mostra a MST resultante da execução do Algoritmo de Prim no dataset:
+**A imagem mostra a MST resultante da execução do Algoritmo de Prim no dataset:
 ![grafo dataset MST](https://github.com/alerabi/grafosnapratica/blob/3041695e5e30469ebf59179a9133a6df739db660/T3/lesmis-mst.png)
 
 
@@ -618,6 +618,11 @@ colorList1 = solveSudoku(colorList1)
 drawSudoku(colorList1)
 ```
 
+O resultado do jogo é exibido na imagem abaixo:
+
+![sudoku1](https://github.com/alerabi/grafosnapratica/blob/master/T5/solution.png)
+
+
 Criando a instância do problema exemplo com dois elementos a menos em cada linha e, portanto, aumentando o grau de dificuldade:
 
 ```markdown 
@@ -657,6 +662,10 @@ colorList2 = solveSudoku(colorList2)
 drawSudoku(colorList2)
 ```
 
+O resultado do jogo é apresentado abaixo:
+
+![sudoku2](https://github.com/alerabi/grafosnapratica/blob/master/T5/solution%20example2.png)
+
 Criando a instancia do problema com apenas 1 elemento em cada linha:
 
 ```markdown 
@@ -677,3 +686,4 @@ colorList3 = solveSudoku(colorList3)
 
 drawSudoku(colorList3)
 ```
+Resultado: O algoritmo não apresentou um resultado para este caso.
