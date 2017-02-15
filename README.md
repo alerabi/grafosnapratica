@@ -367,17 +367,17 @@ Utilizando o algoritmo de coloração podemos descrever as incompatibilidades de
 
 A partir do código abaixo, utilizando as bibliotecas _NetworkX_, _Numpy_ e matplotlib, é possível implementar o Algoritmo de Coloração que resolve o jogo de Sudoku:
 
-```markdown 
+Primeiramente, importamos as bibliotecas necessárias para a implementação do projeto:
 
-##########################################################################
-#Importa as bibliotecas necessarias
+```markdown 
 import networkx as nx
 import matplotlib.pyplot as plt
 import numpy as np
+```
 
+Agora, definimos uma função auxiliar para imprimir uma tabela de sudoku a partir de um grafo:
 
-##########################################################################
-#Funcao auxiliar para imprimir um tabuleiro de sudoku atraves de um grafo
+```markdown
 def drawSudoku(graphcolorList1):
 	#desenha 9 linhas verticais e 9 linhas horizontais, a cada 3 linhas tem uma mais grossa
 	for i in xrange(0, 10):
@@ -401,10 +401,11 @@ def drawSudoku(graphcolorList1):
 
 	plt.show()
 	return
+```
 
+Uma nova função auxiliar vai imprimir um tabuleiro de sudoku preenchido com os respectivos vértices:
 
-##########################################################################
-#Funcao auxiliar para imprimir um tabuleiro de sudoku preenchido com seus respectivos vertices
+```markdown 
 def drawSudokuNodes():
 	#desenha 9 linhas verticais e 9 linhas horizontais, a cada 3 linhas tem uma mais grossa
 	for i in xrange(0, 10):
@@ -426,13 +427,11 @@ def drawSudokuNodes():
 
 	plt.show()
 	return
+```
 
-##########################################################################
-#Algoritmo que resolve o sudoku
-#Recebe um dicionario de nos ja coloridos na forma "nxx" = 4 (no de numero xx tem a cor 4)
-#Os nos que nao possuem cor ainda nao estao no dicionario
-#retorna uma cor pra cada no, quando possivel
+Agora, temos o algoritmo que resolve o Sudoku. Ele recebe um dicionário dos nós já coloridos. Os que não possuem cor ainda não estão no dicionário. O algoritmo retorna uma cor para cada nó, quando possível:
 
+```markdown 
 def solveSudoku(coloredNodesList):
 	uncolored_nodes = []
 	for i in xrange(1,82):
@@ -475,12 +474,12 @@ def solveSudoku(coloredNodesList):
 		if solution == 0:
 			print("O algoritmo nao encontrou nenhuma solucao")
 			break
-	return coloredNodesList
-	
+	return coloredNodesList	
+```
 
-##########################################################################
-#Criando o grafo
+Agora criamos o grafo que representará o tabuleiro, com suas incompatibilidades:
 
+```markdown
 G1 = nx.Graph()
 #adicionando os vertices (n1 - n81)
 for i in xrange(1,82):
@@ -552,9 +551,15 @@ for i in xrange(0,9):
 	for j in xrange(i+1,9):
 		if G1.has_edge(little_square9[i], little_square9[j]) == False:
 			G1.add_edge(little_square9[i],little_square9[j])
+```
 
 
-#Criando a instancia do problema de exemplo (completa)
+
+
+
+Criamos agora, a primeira instância completa de exemplo da execução do algoritmo:
+
+```markdown 
 colorList1 = {}
 colorList1["n1"]  = 9
 colorList1["n2"]  = 5
@@ -601,14 +606,21 @@ colorList1["n77"] = 8
 colorList1["n78"] = 3
 colorList1["n80"] = 9
 colorList1["n81"] = 6
+```
+Agora para resolver o problema, utilizamos as funções auxiliares para desenhar primeiro o tabuleiro. Depois aplicamos a função que resolve o jogo. Por fim, desenhamos novamente o grafo.
+
+```markdown 
 
 drawSudoku(colorList1)
 
 colorList1 = solveSudoku(colorList1)
 
 drawSudoku(colorList1)
+```
 
-#Criando a instancia do problema de exemplo (com 2 elementos a menos em cada linha)
+Criando a instância do problema exemplo com dois elementos a menos em cada linha e, portanto, aumentando o grau de dificuldade:
+
+```markdown 
 colorList2 = {}
 colorList2["n2"]  = 5
 colorList2["n6"]  = 1
@@ -643,8 +655,11 @@ drawSudoku(colorList2)
 colorList2 = solveSudoku(colorList2)
 
 drawSudoku(colorList2)
+```
 
-#Criando a instancia do problema com apenas 1 elemento em cada linha
+Criando a instancia do problema com apenas 1 elemento em cada linha:
+
+```markdown 
 colorList3 = {}
 colorList3["n2"]  = 5
 colorList3["n14"] = 9
