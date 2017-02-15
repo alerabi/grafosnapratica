@@ -334,6 +334,7 @@ A imagem a seguir mostra o grafo que descreve o dataset importado:
 
 
 Por fim, realizamos a função do Algoritmo de Prim, e exibimos a imagem da MST resultante:
+
 ```markdown 
 H1 = prim(G1, G1.nodes()[0])
 
