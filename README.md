@@ -120,9 +120,9 @@ nx.draw_networkx_edges(G, pos, arrows=True)
 plt.savefig("Graph.png", format="PNG")
 plt.show()
 ```
-######################################################################################
-#Calcula a matriz de probabilidade de transicao P
-#Calcula a matriz de adjacencia
+Agora calculamos a matriz de probabilidade de transição P e a matriz de adjacência:
+
+```markdown 
 A = nx.adjacency_matrix(G)
 A = A.toarray()
 
@@ -132,9 +132,10 @@ for i in xrange(0,36):
 		delta[i,i] = 1.0/G.out_degree(i+1)
 #Multiplica delta por A, encontrando assim a matriz de adjacencia
 P = np.dot(delta, A)
+```
+Por fim, calculamos a distribuicao estacionaria através do algoritmo conhecido como power method( (k = 100)
 
-######################################################################################
-#Calculando a distribuicao estacionaria pelo power method (k = 100)
+```markdown
 #Basta fazer w0*P^k, onde w0 e o vetor de probabilidade inicial
 
 #definindo w0
@@ -158,9 +159,22 @@ np.savetxt("P.txt",P,fmt='%.2f')
 #salva o resultado final apos o power method
 np.savetxt("wk.txt",wk,fmt='%.10f')
 ```
+
 ## O Algoritmo de Prim
 
-```markdown 
+### Descrição do problema
+
+   Outro problema clássico em Teoria dos Grafos é o de encontrar caminhos mínimos dentro de um grafo. Deseja-se saber qual é o menor caminho (ou o caminho de menor custo em um grafo ponderado) para se conectar dois pontos em um grafo.
+   O algoritmo de Prim é um algoritmo guloso (greedy algorithm) que tem como objetivo contrar uma árvore geradora mínima (minimal spanning tree) num grafo ponderado e não direcionado. Isso significa que o algoritmo encontra um subgrafo do grafo de origem no qual a soma total das arestas é minimizada e todos os vértices estão interligados. 
+   A solução do algoritmo é ótima, e portanto podemos sempre extrair uma árvore geradora mínima, dado um grafo G ponderado e não direcionado.
+   Nosso próximo desafio consiste em gerar uma árvore geradora mínima, utilizando o Algoritmo de Prim, a partir de um dataset representado em um arquivo .gml
+   
+   
+###Solução
+
+A partir do código abaixo, utilizando as bibliotecas _NetworkX_, _Numpy_ e matplotlib, é possível implementar o Algoritmo de Prim em um dataset importado a partir de um arquivo .gml:
+
+```markdown
 ##########################################################################
 #Importa as bibliotecas necessarias
 import networkx as nx
@@ -170,11 +184,11 @@ import numpy as np
 
 #########################################################################
 #Algortimo de Prim, retorn a MST
-def prim(G, r):
+def prim(Z, r):
 	LAMBDA = []
 	PI = []
 	Q1 = {}
-	Q2 = G.nodes()
+	Q2 = Z.nodes()
 	for v in Q2:
 		if v == r:
 			LAMBDA.append(0)
@@ -190,11 +204,11 @@ def prim(G, r):
 		q = Q2[position]
 		del Q1[minimo]
 		S.append(q)
-		N = G.neighbors(q)
+		N = Z.neighbors(q)
 		for v in N:
-			if v in Q1 and LAMBDA[Q2.index(v)] > G[q][v]['weight']:
-				LAMBDA[Q2.index(v)] = G[q][v]['weight']
-				Q1[v] = G[q][v]['weight']
+			if v in Q1 and LAMBDA[Q2.index(v)] > Z[q][v]['value']:
+				LAMBDA[Q2.index(v)] = Z[q][v]['value']
+				Q1[v] = Z[q][v]['value']
 				PI[Q2.index(v)] = q
 
 	H = nx.Graph()
@@ -202,7 +216,7 @@ def prim(G, r):
 		H.add_node(v)
 	for i in range(0,len(Q2)):
 		if PI[i] != None:
-			H.add_edge(PI[i],Q2[i],weight=LAMBDA[i])
+			H.add_edge(PI[i],Q2[i],value=LAMBDA[i])
 
 	return H
 
@@ -223,27 +237,30 @@ G.add_node("H")
 G.add_node("I")
 
 #adiciona as arestas com peso
-G.add_edge("A","B",weight=4)
-G.add_edge("B","C",weight=8)
-G.add_edge("C","D",weight=7)
-G.add_edge("D","E",weight=9)
-G.add_edge("E","F",weight=10)
-G.add_edge("F","G",weight=2)
-G.add_edge("H","I",weight=7)
-G.add_edge("I","C",weight=2)
-G.add_edge("H","A",weight=8)
-G.add_edge("B","H",weight=11)
-G.add_edge("D","F",weight=14)
-G.add_edge("I","G",weight=6)
-G.add_edge("F","C",weight=4)
-G.add_edge("H","G",weight=1)
+G.add_edge("A","B",value=4)
+G.add_edge("B","C",value=8)
+G.add_edge("C","D",value=7)
+G.add_edge("D","E",value=9)
+G.add_edge("E","F",value=10)
+G.add_edge("F","G",value=2)
+G.add_edge("H","I",value=7)
+G.add_edge("I","C",value=2)
+G.add_edge("H","A",value=8)
+G.add_edge("B","H",value=11)
+G.add_edge("D","F",value=14)
+G.add_edge("I","G",value=6)
+G.add_edge("F","C",value=4)
+G.add_edge("H","G",value=1)
 
 #desenha o grafo inicial
 pos=nx.spring_layout(G)
 nx.draw_networkx_nodes(G,pos)
 nx.draw_networkx_edges(G,pos)
+#Coloca na imagem o peso total
+plt.text(0,1,str(G.size(weight='value')), fontdict = None)
 plt.savefig("Graph1.png", format="PNG")
 plt.show()
+
 
 #chama o algoritmo de prim para encontrar uma mst
 H = prim(G,"A")
@@ -253,6 +270,30 @@ nx.write_gml(H, "teste.gml")
 pos=nx.spring_layout(H)
 nx.draw_networkx_nodes(H,pos)
 nx.draw_networkx_edges(H,pos)
+#Desenha o peso total da mst obtida
+plt.text(0,1,str(H.size(weight='value')), fontdict = None)
 plt.savefig("MST1.png", format="PNG")
 plt.show()
+
+#Obtem um grafo de um arquivo gml e o desenha
+#coloca no desenho o valor do peso total do grafo
+G1 = nx.read_gml('lesmis.gml')
+pos=nx.spring_layout(G1)
+nx.draw_networkx_nodes(G1,pos)
+nx.draw_networkx_edges(G1,pos)
+plt.text(0,1,str(G1.size(weight='value')), fontdict = None)
+plt.savefig("lesmis.png", format="PNG")
+plt.show()
+
+H1 = prim(G1, G1.nodes()[0])
+
+#desenha a mst obtida como peso total
+pos=nx.spring_layout(H1)
+nx.draw_networkx_nodes(H1,pos)
+nx.draw_networkx_edges(H1,pos)
+plt.text(0,1,str(H1.size(weight='value')), fontdict = None)
+plt.savefig("lesmis-mst.png", format="PNG")
+plt.show()
 ```
+
+##
