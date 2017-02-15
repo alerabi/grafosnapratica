@@ -121,6 +121,9 @@ nx.draw_networkx_edges(G, pos, arrows=True)
 plt.savefig("Graph.png", format="PNG")
 plt.show()
 ```
+
+![grafo snakes and ladders](https://github.com/alerabi/grafosnapratica/blob/7be6f80097e0abfd737ff80fd06706d2693542f9/T2/Graph.png)
+
 Agora calculamos a matriz de probabilidade de transição P e a matriz de adjacência:
 
 ```markdown 
