@@ -15,9 +15,9 @@
 
 ### Python
 
-* [Curso Python para Zumbis] (https://www.pycursos.com/python-para-zumbis/)
+* [Curso Python para Zumbis](https://www.pycursos.com/python-para-zumbis/)
 * [Curso completo de Python no Youtube (excript)](https://www.youtube.com/playlist?list=PLesCEcYj003QxPQ4vTXkt22-E11aQvoVj)
-* [Curso completo de Python no Youtube (Ignorância Zero)] (https://www.youtube.com/playlist?list=PLfCKf0-awunOu2WyLe2pSD2fXUo795xRe)
+* [Curso completo de Python no Youtube (Ignorância Zero)](https://www.youtube.com/playlist?list=PLfCKf0-awunOu2WyLe2pSD2fXUo795xRe)
 * [Introdução ao Python do MIT OpenCourseWare](https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-01sc-introduction-to-electrical-engineering-and-computer-science-i-spring-2011/python-tutorial/)
 * [Tutorial de Teoria dos Grafos em Python](http://www.python-course.eu/graphs_python.php)
 
@@ -40,6 +40,7 @@
 
 O primeiro passo para solucionar o problema é importar as bibliotecas que serão utilizadas no ambiente Python. Serão utilizadas
 as bibliotecas _NetworkX_ , _Numpy_, _matplotlib_ e _scipy_:
+
 ```markdown
 import networkx as nx
 import numpy as np
@@ -170,7 +171,7 @@ np.savetxt("wk.txt",wk,fmt='%.10f')
    Nosso próximo desafio consiste em gerar uma árvore geradora mínima, utilizando o Algoritmo de Prim, a partir de um dataset representado em um arquivo .gml
    
    
-###Solução
+### Solução
 
 A partir do código abaixo, utilizando as bibliotecas _NetworkX_, _Numpy_ e matplotlib, é possível implementar o Algoritmo de Prim em um dataset importado a partir de um arquivo .gml:
 
@@ -296,4 +297,313 @@ plt.savefig("lesmis-mst.png", format="PNG")
 plt.show()
 ```
 
-##
+## Sudoku e Coloração de Grafos
+
+### Descrição do problema
+
+Em grafos, os algoritmos de coloração são muito utilizados para resolver problemas de incompatibilidades, isso é feito ligando os vertices que são incompatíveis, e os colorindo com uma cor que ainda não está presente em nenhum de seus vizinhos, formando assim partições dentro do grafo que eliminam as incompatibilidades.
+
+Um Exemplo de aplicação de coloração em grafos é um algoritmo para resolver o jogo Sudoku.
+
+O sudoku é um jogo cuja regra básica é: preencha os números de forma que não haja repetição na mesma linha, coluna ou quadrado (3 x 3).
+Utilizando o algoritmo de coloração podemos descrever as incompatibilidades de quadrante, linha e coluna do Sudoku e assim fazer um código que resolve o jogo.
+
+### Solução
+
+A partir do código abaixo, utilizando as bibliotecas _NetworkX_, _Numpy_ e matplotlib, é possível implementar o Algoritmo de Coloração que resolve o jogo de Sudoku:
+
+```markdown 
+
+##########################################################################
+#Importa as bibliotecas necessarias
+import networkx as nx
+import matplotlib.pyplot as plt
+import numpy as np
+
+
+##########################################################################
+#Funcao auxiliar para imprimir um tabuleiro de sudoku atraves de um grafo
+def drawSudoku(graphcolorList1):
+	#desenha 9 linhas verticais e 9 linhas horizontais, a cada 3 linhas tem uma mais grossa
+	for i in xrange(0, 10):
+		if i%3 == 0:
+			k = 4
+		else:
+			k = 2
+		plt.plot([70 + i*10, 70 + i*10], [100, 190], 'k-', lw=k)
+		plt.plot([70, 160], [100 + i*10, 100+i*10], 'k-', lw=k)
+
+	#configura a area de visao do tabuleiro
+	axes = plt.gca()
+	axes.set_xlim([60,170])
+	axes.set_ylim([90,200])
+
+	#Escreve os numeros que ja foram escritos, de acordo com graphClorList
+	for i in xrange(1,10):
+		for j in xrange(1,10):
+			if "n"+str(i+(9*(j-1))) in graphcolorList1:
+				plt.text(64 + i*10,193 - j*10,graphcolorList1["n"+str(i+(9*(j-1)))], fontdict = None)
+
+	plt.show()
+	return
+
+
+##########################################################################
+#Funcao auxiliar para imprimir um tabuleiro de sudoku preenchido com seus respectivos vertices
+def drawSudokuNodes():
+	#desenha 9 linhas verticais e 9 linhas horizontais, a cada 3 linhas tem uma mais grossa
+	for i in xrange(0, 10):
+		if i%3 == 0:
+			k = 4
+		else:
+			k = 2
+		plt.plot([70 + i*10, 70 + i*10], [100, 190], 'k-', lw=k)
+		plt.plot([70, 160], [100 + i*10, 100+i*10], 'k-', lw=k)
+
+	axes = plt.gca()
+	axes.set_xlim([60,170])
+	axes.set_ylim([90,200])
+
+	#Escreve os numeros correspondente aos nos
+	for i in xrange(1,10):
+		for j in xrange(1,10):
+			plt.text(64 + i*10,193 - j*10,"n"+str(i+((j-1)*9)), fontdict = None)
+
+	plt.show()
+	return
+
+##########################################################################
+#Algoritmo que resolve o sudoku
+#Recebe um dicionario de nos ja coloridos na forma "nxx" = 4 (no de numero xx tem a cor 4)
+#Os nos que nao possuem cor ainda nao estao no dicionario
+#retorna uma cor pra cada no, quando possivel
+
+def solveSudoku(coloredNodesList):
+	uncolored_nodes = []
+	for i in xrange(1,82):
+		if ("n"+str(i) not in coloredNodesList):
+			uncolored_nodes.append("n"+str(i))
+
+	solution = 1
+	while len(uncolored_nodes) > 0:
+		
+	possibleColors = {}
+		for n in uncolored_nodes:
+			colors = [1,2,3,4,5,6,7,8,9]
+			for v in G1.neighbors(n):
+				if v in coloredNodesList:
+					if coloredNodesList[v] in colors:
+						colors.remove(coloredNodesList[v])
+			if len(colors) == 1:
+				coloredNodesList[n] = colors[0]
+				uncolored_nodes.remove(n)
+				solution = 1
+				possibleColors = {}
+				break
+			elif len(colors) == 0:
+				solution = 0
+			else:
+				possibleColors[n] = len(colors)
+
+
+		if(len(possibleColors) > 0):
+			n = min(possibleColors, key = possibleColors.get)
+			colors = [1,2,3,4,5,6,7,8,9]
+			for v in G1.neighbors(n):
+				if v in coloredNodesList:
+					if coloredNodesList[v] in colors:
+						colors.remove(coloredNodesList[v])
+			coloredNodesList[n] = min(colors)
+			uncolored_nodes.remove(n)
+		
+
+		if solution == 0:
+			print("O algoritmo nao encontrou nenhuma solucao")
+			break
+	return coloredNodesList
+	
+
+##########################################################################
+#Criando o grafo
+
+G1 = nx.Graph()
+#adicionando os vertices (n1 - n81)
+for i in xrange(1,82):
+	G1.add_node("n"+str(i))
+
+#adicionando vertices de inconpatibilidadade
+for k in xrange(0,9):
+	for i in xrange(1+(9*k),10+(9*k)):
+		for j in xrange(i+1,10+(9*k)):
+			G1.add_edge("n"+str(i),"n"+str(j))
+
+for k in xrange(0,9):
+	for i in xrange(1+k,82+k,9):
+		for j in xrange(i+9,82+k,9):
+			G1.add_edge("n"+str(i),"n"+str(j))
+
+little_square1 = ["n1","n2","n3", "n10", "n11", "n12", "n19", "n20", "n21"]
+little_square2 = ["n4","n5","n6", "n13", "n14", "n15", "n22", "n23", "n24"]
+little_square3 = ["n28","n29","n30", "n37", "n38", "n39", "n46", "n47", "n48"]
+little_square4 = ["n31","n32","n33", "n40", "n41", "n42", "n49", "n50", "n51"]
+little_square5 = ["n34","n35","n36", "n43", "n44", "n45", "n52", "n53", "n54"]
+little_square6 = ["n55","n56","n57", "n64", "n65", "n66", "n73", "n74", "n75"]
+little_square7 = ["n58","n59","n60", "n67", "n68", "n69", "n76", "n77", "n78"]
+little_square8 = ["n61","n62","n63", "n70", "n71", "n72", "n79", "n80", "n81"]
+little_square9 = ["n7","n8","n9", "n16", "n17", "n18", "n25", "n26", "n27"]
+
+
+for i in xrange(0,9):
+	for j in xrange(i+1,9):
+		if G1.has_edge(little_square1[i], little_square1[j]) == False:
+			G1.add_edge(little_square1[i],little_square1[j])
+
+for i in xrange(0,9):
+	for j in xrange(i+1,9):
+		if G1.has_edge(little_square2[i], little_square2[j]) == False:
+			G1.add_edge(little_square2[i],little_square2[j])
+
+for i in xrange(0,9):
+	for j in xrange(i+1,9):
+		if G1.has_edge(little_square3[i], little_square3[j]) == False:
+			G1.add_edge(little_square3[i],little_square3[j])
+
+for i in xrange(0,9):
+	for j in xrange(i+1,9):
+		if G1.has_edge(little_square4[i], little_square4[j]) == False:
+			G1.add_edge(little_square4[i],little_square4[j])
+
+for i in xrange(0,9):
+	for j in xrange(i+1,9):
+		if G1.has_edge(little_square5[i], little_square5[j]) == False:
+			G1.add_edge(little_square5[i],little_square5[j])
+
+for i in xrange(0,9):
+	for j in xrange(i+1,9):
+		if G1.has_edge(little_square6[i], little_square6[j]) == False:
+			G1.add_edge(little_square6[i],little_square6[j])
+
+for i in xrange(0,9):
+	for j in xrange(i+1,9):
+		if G1.has_edge(little_square7[i], little_square7[j]) == False:
+			G1.add_edge(little_square7[i],little_square7[j])
+
+for i in xrange(0,9):
+	for j in xrange(i+1,9):
+		if G1.has_edge(little_square8[i], little_square8[j]) == False:
+			G1.add_edge(little_square8[i],little_square8[j])
+
+for i in xrange(0,9):
+	for j in xrange(i+1,9):
+		if G1.has_edge(little_square9[i], little_square9[j]) == False:
+			G1.add_edge(little_square9[i],little_square9[j])
+
+
+#Criando a instancia do problema de exemplo (completa)
+colorList1 = {}
+colorList1["n1"]  = 9
+colorList1["n2"]  = 5
+colorList1["n6"]  = 1
+colorList1["n9"]  = 8
+colorList1["n11"] = 2
+colorList1["n12"] = 1
+colorList1["n13"] = 8
+colorList1["n14"] = 9
+colorList1["n16"] = 6
+colorList1["n19"] = 3
+colorList1["n23"] = 4
+colorList1["n24"] = 2
+colorList1["n25"] = 1
+colorList1["n26"] = 5
+colorList1["n27"] = 9
+colorList1["n28"] = 2
+colorList1["n29"] = 4
+colorList1["n32"] = 7
+colorList1["n33"] = 8
+colorList1["n36"] = 1
+colorList1["n37"] = 1
+colorList1["n39"] = 9
+colorList1["n40"] = 3
+colorList1["n41"] = 2
+colorList1["n44"] = 6
+colorList1["n45"] = 5
+colorList1["n46"] = 8
+colorList1["n49"] = 1
+colorList1["n53"] = 7
+colorList1["n54"] = 2
+colorList1["n55"] = 4
+colorList1["n56"] = 9
+colorList1["n59"] = 1
+colorList1["n61"] = 5
+colorList1["n62"] = 8
+colorList1["n64"] = 6
+colorList1["n65"] = 8
+colorList1["n66"] = 2
+colorList1["n67"] = 9
+colorList1["n72"] = 4
+colorList1["n76"] = 4
+colorList1["n77"] = 8
+colorList1["n78"] = 3
+colorList1["n80"] = 9
+colorList1["n81"] = 6
+
+drawSudoku(colorList1)
+
+colorList1 = solveSudoku(colorList1)
+
+drawSudoku(colorList1)
+
+#Criando a instancia do problema de exemplo (com 2 elementos a menos em cada linha)
+colorList2 = {}
+colorList2["n2"]  = 5
+colorList2["n6"]  = 1
+colorList2["n11"] = 2
+colorList2["n12"] = 1
+colorList2["n14"] = 9
+colorList2["n19"] = 3
+colorList2["n23"] = 4
+colorList2["n25"] = 1
+colorList2["n26"] = 5
+colorList2["n29"] = 4
+colorList2["n32"] = 7
+colorList2["n33"] = 8
+colorList2["n37"] = 1
+colorList2["n40"] = 3
+colorList2["n41"] = 2
+colorList2["n44"] = 6
+colorList2["n46"] = 8
+colorList2["n49"] = 1
+colorList2["n55"] = 4
+colorList2["n56"] = 9
+colorList2["n61"] = 5
+colorList2["n64"] = 6
+colorList2["n66"] = 2
+colorList2["n72"] = 4
+colorList2["n76"] = 4
+colorList2["n77"] = 8
+colorList2["n80"] = 9
+
+drawSudoku(colorList2)
+
+colorList2 = solveSudoku(colorList2)
+
+drawSudoku(colorList2)
+
+#Criando a instancia do problema com apenas 1 elemento em cada linha
+colorList3 = {}
+colorList3["n2"]  = 5
+colorList3["n14"] = 9
+colorList3["n25"] = 1
+colorList3["n29"] = 4
+colorList3["n40"] = 3
+colorList3["n54"] = 2
+colorList3["n61"] = 5
+colorList3["n64"] = 6
+colorList3["n80"] = 9
+
+drawSudoku(colorList3)
+
+colorList3 = solveSudoku(colorList3)
+
+drawSudoku(colorList3)
+```
