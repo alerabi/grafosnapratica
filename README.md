@@ -121,8 +121,13 @@ nx.draw_networkx_edges(G, pos, arrows=True)
 plt.savefig("Graph.png", format="PNG")
 plt.show()
 ```
+ 
+ 
+ **Imagem do grafo resultante:
 
 ![grafo snakes and ladders](https://github.com/alerabi/grafosnapratica/blob/7be6f80097e0abfd737ff80fd06706d2693542f9/T2/Graph.png)
+
+
 
 Agora calculamos a matriz de probabilidade de transição P e a matriz de adjacência:
 
@@ -178,15 +183,16 @@ np.savetxt("wk.txt",wk,fmt='%.10f')
 
 A partir do código abaixo, utilizando as bibliotecas _NetworkX_, _Numpy_ e matplotlib, é possível implementar o Algoritmo de Prim em um dataset importado a partir de um arquivo .gml:
 
+O primeiro passo é importar as bibliotecas necessárias para o projeto:
+
 ```markdown
-##########################################################################
-#Importa as bibliotecas necessarias
 import networkx as nx
 import matplotlib.pyplot as plt
 import numpy as np
+```
+O próximo passo é definir uma função que irá realizar o Algoritmo de Prim e retornar o grafo H resultante:
 
-
-#########################################################################
+```markdown
 #Algortimo de Prim, retorn a MST
 def prim(Z, r):
 	LAMBDA = []
@@ -222,11 +228,12 @@ def prim(Z, r):
 		if PI[i] != None:
 			H.add_edge(PI[i],Q2[i],value=LAMBDA[i])
 
-	return H
+	return H 	
+```
 
-	
+Agora iremos testar a função com um grafo teste, antes de importar o dataset. Portanto, criamos um novo grafo:
 
-
+```markdown 
 ##########################################################################
 #Cria um grafo de teste
 G = nx.Graph()
@@ -255,7 +262,11 @@ G.add_edge("D","F",value=14)
 G.add_edge("I","G",value=6)
 G.add_edge("F","C",value=4)
 G.add_edge("H","G",value=1)
+```
 
+Agora, iremos fazer o plot deste grafo inicial:
+
+```markdown
 #desenha o grafo inicial
 pos=nx.spring_layout(G)
 nx.draw_networkx_nodes(G,pos)
@@ -264,12 +275,26 @@ nx.draw_networkx_edges(G,pos)
 plt.text(0,1,str(G.size(weight='value')), fontdict = None)
 plt.savefig("Graph1.png", format="PNG")
 plt.show()
+```
 
 
+**O resultado na imagem é o grafo descrito:
+
+![grafo prim inicial](https://github.com/alerabi/grafosnapratica/blob/3041695e5e30469ebf59179a9133a6df739db660/T3/Graph1.png)
+
+
+
+Agora, chamamos a função anteriormente definida para encontrar a MST a partir do Algoritmo de Prim:
+
+```markdown 
 #chama o algoritmo de prim para encontrar uma mst
 H = prim(G,"A")
 nx.write_gml(H, "teste.gml")
+```
 
+A seguir, fazemos o plot do resultado do algoritmo:
+
+```markdown
 #desenha a mst obtida
 pos=nx.spring_layout(H)
 nx.draw_networkx_nodes(H,pos)
@@ -278,7 +303,17 @@ nx.draw_networkx_edges(H,pos)
 plt.text(0,1,str(H.size(weight='value')), fontdict = None)
 plt.savefig("MST1.png", format="PNG")
 plt.show()
+```
 
+
+**Grafo resultante da função que implementa o Algoritmo de Prim:
+
+![grafo prim mst](https://github.com/alerabi/grafosnapratica/blob/3041695e5e30469ebf59179a9133a6df739db660/T3/MST1.png)
+
+
+Agora, após a verificação da validade da função projetada, extraímos um grafo de um dataset, representado em um arquivo .gml, e plotamos esse grafos:
+
+```markdown 
 #Obtem um grafo de um arquivo gml e o desenha
 #coloca no desenho o valor do peso total do grafo
 G1 = nx.read_gml('lesmis.gml')
@@ -288,7 +323,18 @@ nx.draw_networkx_edges(G1,pos)
 plt.text(0,1,str(G1.size(weight='value')), fontdict = None)
 plt.savefig("lesmis.png", format="PNG")
 plt.show()
+```
 
+
+
+** A imagem a seguir mostra o grafo que descreve o dataset importado:
+
+![grafo dataset](https://github.com/alerabi/grafosnapratica/blob/3041695e5e30469ebf59179a9133a6df739db660/T3/lesmis.png)
+
+
+
+Por fim, realizamos a função do Algoritmo de Prim, e exibimos a imagem da MST resultante:
+```markdown 
 H1 = prim(G1, G1.nodes()[0])
 
 #desenha a mst obtida como peso total
@@ -299,6 +345,12 @@ plt.text(0,1,str(H1.size(weight='value')), fontdict = None)
 plt.savefig("lesmis-mst.png", format="PNG")
 plt.show()
 ```
+
+
+** A imagem mostra a MST resultante da execução do Algoritmo de Prim no dataset:
+![grafo dataset MST](https://github.com/alerabi/grafosnapratica/blob/3041695e5e30469ebf59179a9133a6df739db660/T3/lesmis-mst.png)
+
+
 
 ## Sudoku e Coloração de Grafos
 
