@@ -123,7 +123,7 @@ plt.show()
 ```
  
  
- **Imagem do grafo resultante:
+ Imagem do grafo resultante:
 
 ![grafo snakes and ladders](https://github.com/alerabi/grafosnapratica/blob/7be6f80097e0abfd737ff80fd06706d2693542f9/T2/Graph.png)
 
@@ -278,7 +278,7 @@ plt.show()
 ```
 
 
-**O resultado na imagem é o grafo descrito:
+O resultado na imagem é o grafo descrito:
 
 ![grafo prim inicial](https://github.com/alerabi/grafosnapratica/blob/3041695e5e30469ebf59179a9133a6df739db660/T3/Graph1.png)
 
@@ -306,7 +306,7 @@ plt.show()
 ```
 
 
-**Grafo resultante da função que implementa o Algoritmo de Prim:
+Grafo resultante da função que implementa o Algoritmo de Prim:
 
 ![grafo prim mst](https://github.com/alerabi/grafosnapratica/blob/3041695e5e30469ebf59179a9133a6df739db660/T3/MST1.png)
 
@@ -327,7 +327,7 @@ plt.show()
 
 
 
-**A imagem a seguir mostra o grafo que descreve o dataset importado:
+A imagem a seguir mostra o grafo que descreve o dataset importado:
 
 ![grafo dataset](https://github.com/alerabi/grafosnapratica/blob/3041695e5e30469ebf59179a9133a6df739db660/T3/lesmis.png)
 
@@ -347,7 +347,7 @@ plt.show()
 ```
 
 
-**A imagem mostra a MST resultante da execução do Algoritmo de Prim no dataset:
+A imagem mostra a MST resultante da execução do Algoritmo de Prim no dataset:
 ![grafo dataset MST](https://github.com/alerabi/grafosnapratica/blob/3041695e5e30469ebf59179a9133a6df739db660/T3/lesmis-mst.png)
 
 
