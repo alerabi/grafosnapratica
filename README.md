@@ -8,11 +8,10 @@
 
 ### Teoria dos Grafos
 
-*
-*
-*
-*
-*
+* [Aulas de Teoria dos Grafos do MIT no Youtube](https://www.youtube.com/playlist?list=PL6MpDZWD2gTF3mz26HSufmsIO-COKKb5j)
+* [Material de Teoria dos Grafos da Universidade de Budapeste](http://cs.bme.hu/fcs/graphtheory.pdf)
+* [Referência completa em Teoria dos Grafos - Wolfram Mathworld](http://mathworld.wolfram.com/topics/GraphTheory.html)
+
 
 ### Python
 
@@ -27,21 +26,29 @@
 * [Tutorial sobre NetworkX no Youtube](https://www.youtube.com/playlist?list=PLbu9W4c-C0iC-f1ByMHSa07OSgEQQ-rAk)
 * [Palestra sobre Análise de Redes Sociais com NetworkX](https://www.youtube.com/watch?v=7fsreJMy_pI)
 * [Palestra sobre visualização de Grafos em 3D com NetworkX](https://www.youtube.com/watch?v=7fsreJMy_pI)
-*
-* 
+ 
 ## O Jogo Snakes and Ladders
 
+### Descrição do problema
+
+   O jogo Snakes and Ladders é usualmente abordado nos cursos de Teoria dos Grafos e, portanto, é considerado um problema clássico. Isso se deve ao fato de ser uma aplicação interessante do conceito de Cadeia de Markov em grafos.
+   O jogo, que surgiu há milhares de anos na Índia, possui regras bem simples. O objetivo do jogo é sair da posição inicial e chegar na posição final do tabuleiro. O número de movimentos do jogador é decidido por um dado, e escadas e cobras, fixadas no tabuleiro, oferecem ligação direta entre dois pontos, as escadas fazer o jogador avançar no caminho até a posição final, enquanto que as cobras fazem o jogador voltar no caminho.
+   O que torna este jogo, de simples regras, em uma aplicação matemática interessante é que todo tabuleiro de Snakes and Ladders, independentemente das posições das cobras e escadas, pode ser representado exatamente por uma Cadeia de Markov, isto é, as probabilidades de se mover para qualquer casa no tabuleiro são fixas e independentes. Isto faz com que a vitória no jogo dependa apenas das combinações no dado, não envolvendo qualquer habilidade.
+   O desafio portanto é representar o tabuleiro do jogo como um grafo e em seguida, implementar o algoritmo para descobrir a distribuição da Cadeia de Markov.
+   
+### Solução
+
+O primeiro passo para solucionar o problema é importar as bibliotecas que serão utilizadas no ambiente Python. Serão utilizadas
+as bibliotecas _NetworkX_ , _Numpy_, _matplotlib_ e _scipy_:
 ```markdown
-######################################################################################
-#Bibliotecas necessarias
 import networkx as nx
 import numpy as np
 import matplotlib.pyplot as plt
 import scipy
+```
+O próximo passo é gerar o grafo que representará o tabuleiro do jogo:
 
-######################################################################################
-#Criando o grafo que representa o tabuleiro do jogo
-
+```markdown
 #Cria o grafo
 G = nx.DiGraph()
 #Cria 36 Vertices
@@ -84,10 +91,11 @@ G.add_edges_from([(33,12),(33,35)])
 G.add_edges_from([(34,35),(34,36)])
 G.add_edges_from([(35,36)])
 G.add_edges_from([(36,36)])
+```
 
-######################################################################################
-#Desenhando o grafo
-#posiciona o grafo conforme o tabuleiro
+O próximo passo é desenhar o grafo, posicionando-o conforme o tabuleiro:
+
+```markdown
 pos = nx.shell_layout(G)
 i = 1
 uneven = True
@@ -100,7 +108,10 @@ for y in xrange(1,7):
 			pos[i] = ([(1.5 - (3.0*(x-1))/6),(-1.0 + (3.0*(y-1))/6)])
 			i=i+1
 	uneven = ~uneven
+```
+Agora, desenhamos os vértices, as arestas e exibimos a imagem com o resultado:
 
+```markdown
 #Desenha os vertices
 nx.draw_networkx_nodes(G, pos)
 #Desenha as arestas
@@ -108,8 +119,7 @@ nx.draw_networkx_edges(G, pos, arrows=True)
 #mostra e salva o desenho
 plt.savefig("Graph.png", format="PNG")
 plt.show()
-
-
+```
 ######################################################################################
 #Calcula a matriz de probabilidade de transicao P
 #Calcula a matriz de adjacencia
